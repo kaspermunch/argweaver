@@ -20,7 +20,7 @@ The output is tab-delimited and contains the following columns:
 """
 
 
-from itertools import izip
+
 import os
 import optparse
 import random
@@ -88,8 +88,8 @@ def iter_allele_ages(smc, sites, region=None, maxage=1000000):
                     derived = [name for name in names if name not in derived]
                     node = treelib.lca([tree[x] for x in derived])
                 if node == tree.root:
-                    print >>sys.stderr, (
-                        "warning: noncompatiable site %d." % pos)
+                    print((
+                        "warning: noncompatiable site %d." % pos), file=sys.stderr)
 
                 # Yield upper and lower bound for allele age.
                 yield [chrom, pos-1, pos, len(derived) / float(nseqs),
@@ -126,7 +126,7 @@ else:
 
 # Get region of interest.
 if conf.region:
-    region = map(int, conf.region.split("-"))
+    region = list(map(int, conf.region.split("-")))
 else:
     region = None
 
@@ -139,7 +139,7 @@ smcs = [argweaver.SMCReader(f, parse_trees=True, apply_spr=True)
 ages = [iter_allele_ages(smc, sites, sites.region) for smc in smcs]
 
 # Average ages across samples for each allele.
-for rows in izip(*ages):
+for rows in zip(*ages):
     info = rows[0][:6]
     ages = [row[6:8] for row in rows]
     lows = util.cget(ages, 0)

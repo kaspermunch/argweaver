@@ -24,8 +24,8 @@ conf, args = o.parse_args()
 
 # read sites file
 sites_iter = argweaver.iter_sites(conf.sites)
-header = sites_iter.next()
-first_pos, first_col = sites_iter.next()
+header = next(sites_iter)
+first_pos, first_col = next(sites_iter)
 
 # determine sequence start
 if conf.start:
@@ -64,5 +64,5 @@ while reg_start < end:
     args2 = args3 + ["--sites", conf.sites,
                      "--region", "%d-%d" % (start2, end2),
                      "--output", outprefix]
-    print " ".join(args2)
+    print(" ".join(args2))
     reg_start += step

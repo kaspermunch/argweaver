@@ -36,7 +36,7 @@ arg = arglib.read_arg(arg_file)
 if conf.ntimes:
     # discretize ARG according to given times
     if not conf.maxtime:
-        print >>sys.stderr, 'option --maxtime is needed'
+        print('option --maxtime is needed', file=sys.stderr)
         sys.exit(1)
 
     times = argweaver.get_time_points(ntimes=conf.ntimes, maxtime=conf.maxtime)

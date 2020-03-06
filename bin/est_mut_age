@@ -46,8 +46,8 @@ for block, tree in arglib.read_tree_tracks(treefile):
                 est_age = (est_age_min + est_age_max) / 2.0
             else:
                 est_age = 0
-                print >>sys.stderr, "mut does not conform", mut_pos[i]
+                print("mut does not conform", mut_pos[i], file=sys.stderr)
 
-        print "\t".join([str(mut_pos[i]), str(est_age),
-                         ",".join(chroms[i])])
+        print("\t".join([str(mut_pos[i]), str(est_age),
+                         ",".join(chroms[i])]))
         i += 1

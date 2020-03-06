@@ -22,7 +22,7 @@ conf, args = o.parse_args()
 
 # read data
 if conf.region:
-    region = map(int, conf.region.split("-"))
+    region = list(map(int, conf.region.split("-")))
 else:
     region = None
 smc = argweaver.iter_smc_file(conf.smc, region=region)

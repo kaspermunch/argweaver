@@ -33,10 +33,10 @@ def read_chrom_colors(filename):
     chrom_colors = {}
     for row in util.read_delim(filename):
         if len(row) == 4:
-            r, g, b = map(float, row[1:])
+            r, g, b = list(map(float, row[1:]))
             a = 1.0
         elif len(row) == 5:
-            r, g, b, a = map(float, row[1:])
+            r, g, b, a = list(map(float, row[1:]))
         else:
             raise Exception("wrong number of fields in chrom color file")
         chrom_colors[row[0]] = [r, g, b, a]
@@ -55,7 +55,7 @@ else:
 util.toc()
 
 if conf.region:
-    region = map(int, conf.region.split("-"))
+    region = list(map(int, conf.region.split("-")))
 else:
     region = [arg.start, arg.end]
 
@@ -94,7 +94,7 @@ if conf.chrom_color:
 if conf.pos:
     for i in range(len(blocks)):
         if blocks[i][0] <= conf.pos < blocks[i][1]:
-            items = leaf_layout[i].items()
+            items = list(leaf_layout[i].items())
             items.sort(key=lambda x: x[1])
             order = util.cget(items, 0)
             break

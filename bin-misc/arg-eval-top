@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from itertools import izip
+
 import optparse
 import os
 import tempfile
@@ -76,13 +76,13 @@ def iter_trees_arg(filename, attr):
 
 def filter_trees(trees, pts):
     try:
-        item = trees.next()
+        item = next(trees)
         for pos in pts:
             #print >>sys.stderr, item[0], item[1], pos
             if item[0] > pos:
                 continue
             while item[1] <= pos:
-                item = trees.next()
+                item = next(trees)
             if item[0] <= pos < item[1]:
                 #print >>sys.stderr, "yield", item[0], item[1], pos
                 yield pos, item
@@ -92,7 +92,7 @@ def filter_trees(trees, pts):
 
 
 def parse_tree(tree, names):
-    if isinstance(tree, basestring):
+    if isinstance(tree, str):
         tree = argweaver.smc.parse_tree(tree)
         for i, name in enumerate(names):
             tree.rename(i, name)
@@ -180,11 +180,11 @@ trees2.peek()
 
 start, end = attr1["region"][1], attr1["region"][2]
 step = (end - start) / conf.ntrees
-pts = range(start + step/2, end, step)
+pts = list(range(start + step/2, end, step))
 
 error = []
 seen = 0
-for (pos1, item1), (pos2, item2) in izip(
+for (pos1, item1), (pos2, item2) in zip(
         filter_trees(trees1, pts), filter_trees(trees2, pts)):
     seen += 1
 
@@ -219,4 +219,4 @@ for (pos1, item1), (pos2, item2) in izip(
 assert seen == conf.ntrees
 
 error = util.transpose(error)
-util.print_row(*map(stats.mean, error))
+util.print_row(*list(map(stats.mean, error)))

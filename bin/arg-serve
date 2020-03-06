@@ -69,7 +69,7 @@ def get_tree(pos=0):
 
     try:
         return (callback + "('" +
-                json.dumps(smc_db.get_trees(chrom, pos, pos).next()) + "');")
+                json.dumps(next(smc_db.get_trees(chrom, pos, pos))) + "');")
     except:
         return ""
 
@@ -83,9 +83,9 @@ def get_tree_spr(pos=0):
     callback = request.query.get("callback", "jsonp_callback")
 
     try:
-        result = [smc_db.get_trees(chrom, pos, pos).next()]
+        result = [next(smc_db.get_trees(chrom, pos, pos))]
         end = result[0]["end"]
-        result.append(smc_db.get_sprs(chrom, end, end+1).next())
+        result.append(next(smc_db.get_sprs(chrom, end, end+1)))
     except:
         result = []
 

@@ -29,7 +29,7 @@ conf, args = o.parse_args()
 
 def is_variant(col):
     c = col[0]
-    for i in xrange(1, len(col)):
+    for i in range(1, len(col)):
         if col[i] != c:
             return True
     return False
@@ -37,7 +37,7 @@ def is_variant(col):
 
 def is_informative(col):
     count = [0,0,0,0]
-    for i in xrange(0, len(col)):
+    for i in range(0, len(col)):
         if col[i] == 'A':
             count[0] += 1
         elif col[i] == 'C':
@@ -47,7 +47,7 @@ def is_informative(col):
         elif col[i] == 'T':
             count[3] += 1
         elif col[i] != 'N':
-            print >> sys.stderr, 'Error got allele ', col[i]
+            print('Error got allele ', col[i], file=sys.stderr)
     return ((count[0] > 1) + (count[1] > 1) + (count[2] > 1) + (count[3] > 1)) >= 2
 
 
@@ -56,7 +56,7 @@ sites = argweaver.read_sites(conf.sites)
 
 
 # get individuals
-ind = range(sites.nseqs())
+ind = list(range(sites.nseqs()))
 if conf.nseqs:
     if conf.both_haps:
         dips = util.unique(x[:-2] for x in sites.names)
@@ -75,7 +75,7 @@ elif conf.ind:
         assert name in sites.names, name
 
 if conf.region:
-    region = map(int, conf.region.split("-"))
+    region = list(map(int, conf.region.split("-")))
 else:
     region = sites.region
 

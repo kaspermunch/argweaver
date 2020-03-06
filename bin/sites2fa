@@ -20,7 +20,7 @@ o.add_option("-c", "--char", default=None, help="Default character")
 conf, args = o.parse_args()
 
 if not conf.sites:
-    print "sites file required (--sites)"
+    print("sites file required (--sites)")
     sys.exit(1)
 
 if conf.fasta:

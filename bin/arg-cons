@@ -69,7 +69,7 @@ def iter_trees_arg(filename, attr, region=None):
 
 
 def get_tree(tree_repr):
-    if isinstance(tree_repr, basestring):
+    if isinstance(tree_repr, str):
         return treelib.parse_newick(tree_repr)
     else:
         arg, pos = tree_repr
@@ -101,9 +101,9 @@ def cons_smc(trees, attr, positions=None):
                 i += 1
             if not (start <= positions[i] < end):
                 continue
-        print >>sys.stderr, start, end
+        print(start, end, file=sys.stderr)
 
-        treeset = map(get_tree, util.cget(group, 3))
+        treeset = list(map(get_tree, util.cget(group, 3)))
         tree = phylo.consensus_majority_rule(treeset, rooted=True)
         treelib.assert_tree(tree)
 
@@ -128,7 +128,7 @@ if len(args) == 0:
 
 region = None
 if conf.region:
-    region = map(int, conf.region.split("-"))
+    region = list(map(int, conf.region.split("-")))
 
 
 # get filenames
@@ -145,7 +145,7 @@ else:
 attr = {}
 trees = []
 for filename in filenames:
-    print >>sys.stderr, filename
+    print(filename, file=sys.stderr)
     if filename.endswith(".arg"):
         trees.extend(iter_trees_arg(filename, attr, region))
     else:
@@ -156,8 +156,8 @@ if conf.ntrees:
     start = attr["region"][1]
     end = attr["region"][2]
     step = int((end - start) / conf.ntrees)
-    positions = range(start+step/2, end, step)
-    print >>sys.stderr, step, positions
+    positions = list(range(start+step/2, end, step))
+    print(step, positions, file=sys.stderr)
 else:
     positions = None
 

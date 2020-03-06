@@ -21,7 +21,7 @@ o.add_option("-o", "--sites", help="output sites file")
 conf, args = o.parse_args()
 
 if not conf.fasta:
-    print "fasta file required (--fasta)"
+    print("fasta file required (--fasta)")
     sys.exit(1)
 
 if conf.sites:

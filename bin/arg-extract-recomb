@@ -58,7 +58,7 @@ times = argweaver.get_time_points(ntimes=conf.ntimes, maxtime=conf.maxtime)
 # Read tree branch lengths for all ARGs.
 treelens = []
 for filename in filenames:
-    print >>sys.stderr, filename
+    print(filename, file=sys.stderr)
     smc = argweaver.SMCReader(filename)
     chrom, region_start, region_end = (
         smc.header["chrom"], smc.header["start"], smc.header["end"])
@@ -70,7 +70,7 @@ for filename in filenames:
     ends = [0] * ntrees
     argweaverc.get_treelens(trees, times, len(times), treelen)
     argweaverc.get_local_trees_blocks(trees, starts, ends)
-    treelens.append(zip(starts, ends, treelen))
+    treelens.append(list(zip(starts, ends, treelen)))
     argweaverc.delete_local_trees(trees)
 
 # Get average tree lengths and recombination positions.

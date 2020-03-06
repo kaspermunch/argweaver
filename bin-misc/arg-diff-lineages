@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from itertools import izip
+
 import optparse
 import os
 
@@ -29,7 +29,7 @@ conf, args = o.parse_args()
 
 def get_nlineages(tree, times):
     ages = treelib.get_tree_ages(tree)
-    for node, age in ages.items():
+    for node, age in list(ages.items()):
         ages[node] = min(times, key=lambda x: abs(x - age))
 
     nbranches = [0 for i in range(len(times))]
@@ -82,14 +82,14 @@ def get_pos(start, end, step):
 
 
 def diff_counts(counts1, counts2):
-    return sum(abs(a - b) for a, b in izip(counts1, counts2))
+    return sum(abs(a - b) for a, b in zip(counts1, counts2))
 
 
 def diff_lineages(true_lineages, lineages):
     assert (len(true_lineages) == len(lineages),
             (len(true_lineages), len(lineages)))
     diff = []
-    for row, row2 in izip(true_lineages, lineages):
+    for row, row2 in zip(true_lineages, lineages):
         diff.append(diff_counts(row[3:], row2[3:]))
         #print row, row2, diff[-1]
     return stats.mean(diff)

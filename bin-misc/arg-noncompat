@@ -39,8 +39,8 @@ else:
     arg = argweaver.read_arg(argfile)
 sites = argweaver.read_sites(sitesfile)
 
-print "names", sites.names
-print
+print("names", sites.names)
+print()
 
 noncompats = []
 for block, tree in arglib.iter_local_trees(arg):
@@ -53,11 +53,11 @@ for block, tree in arglib.iter_local_trees(arg):
         node = arglib.split_to_tree_branch(tree, split)
         if node is None:
             noncompats.append(pos)
-            print "noncompat", block, pos, col
-            print phylo.hash_tree(tree)
-            print tree.leaf_names()
-            print "".join(col[sites.names.index(name)]
-                          for name in tree.leaf_names())
-            print split
-            print
-print "num noncompats", len(noncompats)
+            print("noncompat", block, pos, col)
+            print(phylo.hash_tree(tree))
+            print(tree.leaf_names())
+            print("".join(col[sites.names.index(name)]
+                          for name in tree.leaf_names()))
+            print(split)
+            print()
+print("num noncompats", len(noncompats))
