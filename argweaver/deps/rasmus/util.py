@@ -21,6 +21,7 @@ import sys
 
 from collections import defaultdict
 
+cmp = lambda x, y: (x > y) - (x < y)
 
 #
 # see bottom of file for other imports
