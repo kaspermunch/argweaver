@@ -106,10 +106,9 @@ class build_prog(_build_clib):
         for (prog_name, build_info) in libraries:
             sources = build_info.get('sources')
             if sources is None or not isinstance(sources, (list, tuple)):
-                raise DistutilsSetupError, \
-                      ("in 'libraries' option ('%s'), " +
+                raise DistutilsSetupError(("in 'libraries' option ('%s'), " +
                        "'sources' must be present and must be " +
-                       "a list of source filenames") % prog_name
+                       "a list of source filenames") % prog_name)
             sources = list(sources)
 
             # Skip build, if program already built.
